@@ -12,7 +12,7 @@ export type PessoasDataBase = {
 }
 
 export function usePessoasDataBase(){
-    const dataBase = useSQLiteContext()//Acessar todos os metodos do bd
+    const dataBase = useSQLiteContext()
 
     async function create(data: Omit<PessoasDataBase, "id">){
         const statement = await dataBase.prepareAsync(
@@ -40,6 +40,15 @@ export function usePessoasDataBase(){
         }
     }//fim da função
 
-   
-    return {create}
+    async function consultar(busca : string){
+        try {
+            const query = "select * from pessoas where nome like ? OR cpf like ?"
+            const response = await dataBase.getAllAsync<PessoasDataBase>(query,`%${busca}%`,`%${busca}%`)
+            return response 
+        } catch (error) {
+            throw error
+        }
+    }
+
+    return {create,consultar}
 }

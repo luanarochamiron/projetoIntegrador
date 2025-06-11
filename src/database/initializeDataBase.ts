@@ -8,7 +8,7 @@ export async function initializeDataBase(dataBase: SQLiteDatabase){
             nomeSocial text not null,
             dataNascimento text not null,
             email text not null,
-            senha email text not null
+            senha text not null
         );
     `)
 }

@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import { useNavigation } from "expo-router";
+import { useRouter } from 'expo-router';
 import {View,Text, StyleSheet, TextInput, TouchableOpacity,Alert } from 'react-native';
 
 export default function Index(){
-    const navigation = useNavigation();
+    const rota = useRouter()
     return(
         <View>
             <Text>Bem- vindo </Text>
 
-            <TouchableOpacity onPress={() => navigation.navigate('login')}><Text>Acessar</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Cadastrar')}><Text>Não tem uma conta? Cadastre-se </Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => rota.push('/login')}><Text>Acessar</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => rota.push('/cadastrar')}><Text>Não tem uma conta? Cadastre-se </Text></TouchableOpacity>
 
         </View>
     )

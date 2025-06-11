@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import { useNavigation } from "expo-router";
+import { useRouter } from 'expo-router';
 import {View,Text, StyleSheet, TextInput, TouchableOpacity,Alert } from 'react-native';
 
 export default function Login(){
-    const navigation = useNavigation();
+    const rota = useRouter()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -36,9 +36,9 @@ export default function Login(){
             <Text>Senha</Text>
             <TextInput placeholder='Digite sua senha' value={password} onChangeText={(e)=> setPassword(e)}/>
 
-            <TouchableOpacity onPress={()=>getLogin()}><Text>Acessar</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Cadastrar')}><Text>Não tem uma conta? Cadastre-se </Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Index')}><Text>Voltar</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => rota.push('/menu')}><Text>Acessar</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => rota.push('/cadastrar')}><Text>Não tem uma conta? Cadastre-se </Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => rota.push('/Index')}><Text>Voltar</Text></TouchableOpacity>
 
         </View>
     )
