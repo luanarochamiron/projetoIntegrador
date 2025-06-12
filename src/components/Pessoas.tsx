@@ -1,15 +1,8 @@
 import { View, Pressable, PressableProps, Text, ScrollView, StyleSheet } from "react-native";
+import { PessoasDataBase } from "../database/usePessoasDataBase"; // ajuste o caminho
 
 type Props = PressableProps & {
-  data: {
-    id: string;
-    cpf: string;
-    nome: string;
-    nomeSocial: string;
-    dataNascimento: string;
-    email: string;
-    senha: string;
-  };
+  data: PessoasDataBase;
 };
 
 export function Pessoas({ data, ...rest }: Props) {

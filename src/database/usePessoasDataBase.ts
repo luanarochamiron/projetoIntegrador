@@ -50,5 +50,19 @@ export function usePessoasDataBase(){
         }
     }
 
-    return {create,consultar}
+    async function findByEmail(email: string): Promise<PessoasDataBase | undefined> {
+        try {
+          console.log("Buscando email:", email)
+          const query = "select * from pessoas where email = ? limit 1"
+          const result = await dataBase.getAsync<PessoasDataBase>(query, email)
+          console.log("Resultado do banco:", result)
+          return result ?? undefined
+        } catch (error) {
+          console.error("Erro no findByEmail:", error)
+          throw error
+        }
+      }
+      
+
+    return {create,consultar,findByEmail }
 }

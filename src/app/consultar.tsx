@@ -7,7 +7,7 @@ import { usePessoasDataBase, PessoasDataBase } from '../database/usePessoasDataB
 
 export default function Cadastrar(){
     const rota = useRouter()
-    const [pessoas, setPessoas] = useState<PessoasDataBase[]>()
+    const [pessoas, setPessoas] = useState<PessoasDataBase[]>([]);
     const pessoasDataBase = usePessoasDataBase()
     const [id, setId] = useState("")
     const [cpf, setCpf] = useState("")
@@ -46,12 +46,13 @@ export default function Cadastrar(){
         <View>
 			<Text>Pessoas cadastradas</Text>
             <View>
-            <FlatList 
-                    data={pessoas}
-                    keyExtractor={(item) => String(item.id)}
-                    renderItem={({item}) => <Pessoas data={item} />}
-                    contentContainerStyle={{gap:16}}
-                />
+            <FlatList
+            data={pessoas}
+            keyExtractor={(item) => String(item.id)}
+            renderItem={({ item }) => <Pessoas data={item} />}
+            contentContainerStyle={{ gap: 16 }}
+            />
+
             </View>
             <TouchableOpacity onPress={() => rota.push('/menu')}><Text>Voltar</Text></TouchableOpacity>
         </View>
