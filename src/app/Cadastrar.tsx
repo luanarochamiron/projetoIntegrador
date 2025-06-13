@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import DateTimePicker from "@react-native-community/datetimepicker";
-
 import { Platform, View, Text, Button, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { usePessoasDataBase, PessoasDataBase } from '../database/usePessoasDataBase';
 
@@ -15,6 +14,7 @@ export default function Cadastrar() {
   const [dataNascimento, setDataNascimento] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [senhaVisivel, setSenhaVisivel] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   function onChangeDate(event: any, selectedDate?: Date) {
@@ -82,7 +82,8 @@ export default function Cadastrar() {
           mode="date"
           display="default"
           onChange={onChangeDate}
-          maximumDate={new Date()} // não deixa escolher data futura
+          maximumDate={new Date(2014, 11, 31)}
+          minimumDate={new Date(1975, 0, 1)}
         />
       )}
       <TextInput
@@ -93,13 +94,30 @@ export default function Cadastrar() {
         style={styles.input}
         autoCapitalize="none"
       />
-      <TextInput
-        placeholder="Senha"
-        value={senha}
-        onChangeText={setSenha}
-        secureTextEntry
-        style={styles.input}
-      />
+      
+
+      <View style={styles.senhaContainer}>
+        <TextInput
+          placeholder="Senha"
+          value={senha}
+          onChangeText={setSenha}
+          secureTextEntry={!senhaVisivel}
+          style={[styles.input, { flex: 1, borderWidth: 0 }]}
+        />
+        <TouchableOpacity onPress={() => setSenhaVisivel(!senhaVisivel)}>
+          <Text style={{ color: 'blue', marginLeft: 10 }}>
+            {senhaVisivel ? "Ocultar" : "Mostrar"}
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+
+
+
+
+
+
+
       <Button title="Cadastrar" onPress={create} />
       <TouchableOpacity onPress={() => rota.push('/Index')} style={styles.backButton}>
         <Text style={{ color: 'blue', marginTop: 15 }}>Voltar</Text>
@@ -131,5 +149,14 @@ const styles = StyleSheet.create({
   },
   backButton: {
     alignItems: 'center',
+  },
+  senhaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#999',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 12,
   },
 });

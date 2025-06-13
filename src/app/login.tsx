@@ -6,13 +6,13 @@ import { usePessoasDataBase } from '../database/usePessoasDataBase'; // ajuste o
 export default function Login() {
   const rota = useRouter();
   const pessoasDataBase = usePessoasDataBase();
-
+  const [senhaVisivel, setSenhaVisivel] = useState(false); 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function getLogin() {
-    if (!email || !password) {
+    if (!email || !senha) {
       return Alert.alert('Atenção', 'Informe os campos obrigatórios!');
     }
 
@@ -28,7 +28,7 @@ export default function Login() {
         return;
       }
 
-      if (usuario.senha !== password) {
+      if (usuario.senha !== senha) {
         Alert.alert('Erro', 'Senha incorreta');
         setLoading(false);
         return;
@@ -59,14 +59,20 @@ export default function Login() {
         autoCapitalize="none"
       />
 
-      <Text style={styles.label}>Senha</Text>
-      <TextInput
-        placeholder='Digite sua senha'
-        value={password}
-        onChangeText={setPassword}
-        style={styles.input}
-        secureTextEntry
-      />
+      <View style={styles.senhaContainer}>
+        <TextInput
+          placeholder="Senha"
+          value={senha}
+          onChangeText={setSenha}
+          secureTextEntry={!senhaVisivel}
+          style={[styles.input, { flex: 1, borderWidth: 0 }]}
+        />
+        <TouchableOpacity onPress={() => setSenhaVisivel(!senhaVisivel)}>
+          <Text style={{ color: 'blue', marginLeft: 10 }}>
+            {senhaVisivel ? "Ocultar" : "Mostrar"}
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       <TouchableOpacity
         style={[styles.button, loading && styles.buttonDisabled]}
@@ -129,5 +135,14 @@ const styles = StyleSheet.create({
     color: 'blue',
     marginBottom: 12,
     textAlign: 'center',
+  },
+  senhaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#999',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 12,
   },
 });
